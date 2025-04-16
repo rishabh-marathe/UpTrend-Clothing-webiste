@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+	<meta charset="UTF-8">
+	<title>Add Product | Admin Panel</title>
+
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+		crossorigin="anonymous">
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+		integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+
+	<!-- Internal padding for navbar spacing -->
+	<style>
+		.mt-navbar-adjust {
+			margin-top: 100px; /* adjust if navbar height is different */
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<div class="container mt-5 pt-5 p-4">
+			<div class="row justify-content-center">
+				<div class="col-md-8">
+					<div class="card shadow-sm rounded-3">
+						<div class="card-header text-center fs-4 fw-bold">
+							Add Product
+							<!-- Success message -->
+							<th:block th:if="${session.SuccMsg}">
+								<p class="text-success mt-2 mb-0 fw-semibold">[[${session.SuccMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage}"></th:block>
+							</th:block>
+							<!-- Error message -->
+							<th:block th:if="${session.ErrorMsg}">
+								<p class="text-danger mt-2 mb-0 fw-semibold">[[${session.ErrorMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage}"></th:block>
+							</th:block>
+						</div>
+
+						<div class="card-body">
+							<form action="/admin/saveProduct" method="post" enctype="multipart/form-data">
+								<div class="mb-3">
+									<label class="form-label">Enter Title</label>
+									<input type="text" name="title" class="form-control" required>
+								</div>
+
+								<div class="mb-3">
+									<label class="form-label">Enter Description</label>
+									<textarea rows="3" name="description" class="form-control" required></textarea>
+								</div>
+
+								<div class="mb-3">
+									<label class="form-label">Category</label>
+									<select class="form-select" name="category" required>
+										<option value="">-- Select --</option>
+										<option th:each="c : ${categories}" th:value="${c.name}" th:text="${c.name}"></option>
+									</select>
+								</div>
+
+								<div class="mb-3">
+									<label class="form-label">Enter Price</label>
+									<input type="number" step="0.01" name="price" class="form-control" required>
+								</div>
+
+								<div class="mb-3">
+									<label class="form-label">Status</label>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="isActive" value="true" id="statusActive" checked>
+										<label class="form-check-label" for="statusActive">Active</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="isActive" value="false" id="statusInactive">
+										<label class="form-check-label" for="statusInactive">Inactive</label>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6 mb-3">
+										<label class="form-label">Enter Stock</label>
+										<input type="number" name="stock" class="form-control" required>
+									</div>
+									<div class="col-md-6 mb-3">
+										<label class="form-label">Upload Image</label>
+										<input type="file" name="file" class="form-control" accept="image/*" required>
+									</div>
+								</div>
+
+								<button type="submit" class="btn btn-primary w-100">Submit</button>
+							</form>
+						</div> <!-- card-body -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
+

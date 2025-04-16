@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+	<meta charset="UTF-8">
+	<title>Register | UpTrend</title>
+	<link rel="icon" type="image/x-icon" href="img/img1.webp">
+</head>
+<body>
+<section>
+	<div class="container mt-5 p-4">
+		<div class="row justify-content-center align-items-center">
+			<div class="col-md-5 mb-4 text-center">
+				<img src="img/ecom.png" alt="UpTrend Logo" class="img-fluid rounded shadow" style="height: 380px;">
+			</div>
+
+			<div class="col-md-7">
+				<div class="card shadow-lg border-0 p-4 rounded-4">
+					<div class="card-header text-center bg-white border-0">
+						<h3 class="fw-bold">Create an Account</h3>
+
+						<!-- Success Message -->
+						<th:block th:if="${session.succMsg}">
+							<p class="text-success fw-semibold mt-2">[[${session.succMsg}]]</p>
+							<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+						</th:block>
+
+						<!-- Error Message -->
+						<th:block th:if="${session.errorMsg}">
+							<p class="text-danger fw-semibold mt-2">[[${session.errorMsg}]]</p>
+							<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+						</th:block>
+					</div>
+
+					<div class="card-body">
+						<form action="/saveUser" method="post" enctype="multipart/form-data" id="userRegister" novalidate>
+							<div class="row mb-3">
+								<div class="col">
+									<label class="form-label">Full Name</label>
+									<input required class="form-control rounded-3" name="name" type="text">
+								</div>
+								<div class="col">
+									<label class="form-label">Mobile Number</label>
+									<input required class="form-control rounded-3" name="mobileNumber" type="number">
+								</div>
+							</div>
+
+							<div class="mb-3">
+								<label class="form-label">Email</label>
+								<input required class="form-control rounded-3" name="email" type="email">
+							</div>
+
+							<div class="row mb-3">
+								<div class="col">
+									<label class="form-label">Address</label>
+									<input required class="form-control rounded-3" name="address" type="text">
+								</div>
+								<div class="col">
+									<label class="form-label">City</label>
+									<input required class="form-control rounded-3" name="city" type="text">
+								</div>
+							</div>
+
+							<div class="row mb-3">
+								<div class="col">
+									<label class="form-label">State</label>
+									<input required class="form-control rounded-3" name="state" type="text">
+								</div>
+								<div class="col">
+									<label class="form-label">Pincode</label>
+									<input required class="form-control rounded-3" name="pincode" type="number">
+								</div>
+							</div>
+
+							<div class="row mb-3">
+								<div class="col">
+									<label class="form-label">Password</label>
+									<input required class="form-control rounded-3" name="password" type="password" id="pass">
+								</div>
+								<div class="col">
+									<label class="form-label">Confirm Password</label>
+									<input required class="form-control rounded-3" name="confirmpassword" type="password">
+								</div>
+							</div>
+
+							<div class="mb-4">
+								<label class="form-label">Profile Image</label>
+								<input class="form-control rounded-3" name="img" type="file">
+							</div>
+
+							<button type="submit" class="btn btn-dark w-100 rounded-3 py-2">Register</button>
+						</form>
+					</div>
+
+					<div class="card-footer bg-white text-center border-0">
+						<span class="text-muted">Already have an account?</span>
+						<a href="/signin" class="text-decoration-none fw-semibold ms-1">Login</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</body>
+</html>
